@@ -21,17 +21,11 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children, }: { children: React.ReactNode; }) {
   return (
     <html lang="zh-tw">
       <head />
-      <body >
-        {children}
-      </body>
+      <body className={`${fontSans.className} antialiased`}> {children} </body>
     </html>
   );
 }
