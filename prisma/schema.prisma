@@ -1,0 +1,800 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model addgoods {
+  AD_NAME      String         @id @db.VarChar(20)
+  addgoods_ext addgoods_ext[] @ignore
+
+  @@index([AD_NAME], map: "AD_NAME")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model addgoods_ext {
+  ADE_NAME String?   @db.VarChar(20)
+  Me_CODE  String?   @db.VarChar(8)
+  Me_NAME  String?   @db.VarChar(30)
+  Me_Num   Int?
+  addgoods addgoods? @relation(fields: [ADE_NAME], references: [AD_NAME], onDelete: Cascade, map: "addgoods_ext_ibfk_1")
+
+  @@index([ADE_NAME], map: "ADE_NAME")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model baseconfig {
+  MiniForm           Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  AllowAddMember     Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  AllowChangePass    Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  AllowViewWaste     Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  AllowFarFood       Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  AllowCallHost      Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  AllowHoldCom       Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  AllowReuqest       Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  IdleShutdown       Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  IdleSec            Int?      @default(180) @db.SmallInt
+  LockMouse          Boolean?  @default(dbgenerated("b'0'")) @db.Bit(1)
+  LockKeyboard       Boolean?  @default(dbgenerated("b'0'")) @db.Bit(1)
+  LockcadKey         Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  LockWinKey         Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  HideTask           Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  LockBeforeKillGame Boolean?  @default(dbgenerated("b'0'")) @db.Bit(1)
+  RecordBreakTcp     Boolean?  @default(dbgenerated("b'0'")) @db.Bit(1)
+  ShowPlacard        Boolean?  @default(dbgenerated("b'0'")) @db.Bit(1)
+  PlacardTEXT        String?   @db.Text
+  OverType           Int?      @default(0) @db.TinyInt
+  OverCallSec        Int?      @default(300) @db.SmallInt
+  OverCallMethod     Int?      @default(2) @db.TinyInt
+  OverCallSoundTimes Int?      @default(3) @db.TinyInt
+  MemTime1           DateTime? @db.Time(0)
+  MemTime2           DateTime? @db.Time(0)
+  MemAge             Int?      @default(18) @db.TinyInt
+  MemforeceLocal     Boolean?  @default(dbgenerated("b'1'")) @db.Bit(1)
+  ServerIP           String?   @default("LocalHost") @db.VarChar(20)
+  ServerMac          String?   @db.VarChar(20)
+  ServerPort         Int?      @default(60000)
+  RepairUnLockPass   String?   @default("12345678") @db.VarChar(12)
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model baseprice {
+  Sn       String @id @db.Char(1)
+  TimeType Int?   @default(1) @db.TinyInt
+  Price    Int?
+  Color    Int?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model batdata {
+  com_no   Int     @db.SmallInt
+  com_name String  @db.VarChar(30)
+  com_mac  String? @db.VarChar(17)
+  optime   String? @db.VarChar(6)
+  ovtime   String? @db.VarChar(6)
+  ac_bat   String? @db.VarChar(1)
+  bat      String? @db.VarChar(50)
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model broadcast {
+  CAST_NO        String    @id @db.VarChar(8)
+  CAST_Type      Int?      @db.TinyInt
+  CAST_R         Int?      @db.TinyInt
+  CAST_Time      DateTime? @db.Time(0)
+  CAST_DATA      String?   @db.VarChar(30)
+  CAST_FONTNAME  String?   @db.VarChar(12)
+  CAST_FontColor Int?
+  CAST_FontSize  Int?      @db.TinyInt
+
+  @@index([CAST_NO], map: "CAST_NO")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model business_tax_type {
+  X_typeno   String  @id @db.Char(1)
+  X_typename String? @db.VarChar(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model buycardhis {
+  CusNo         String?   @db.VarChar(12)
+  CardNo        String?   @db.Char(5)
+  CardName      String?   @db.Char(20)
+  CardSaleMoney Int?
+  CardNum       Int?
+  CardScore     Int?
+  CardTime      DateTime? @db.DateTime(0)
+
+  @@index([CardName], map: "CardName")
+  @@index([CardNo], map: "CardNo")
+  @@index([CusNo], map: "CusNo")
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model buygoods {
+  BY_CODE       String         @id @db.Char(12)
+  BY_COPNO      String         @db.VarChar(8)
+  BY_SNAME      String?        @db.VarChar(8)
+  BY_DATE       DateTime       @db.Date
+  BY_CALLMAN    String?        @db.VarChar(8)
+  BY_SALE       String?        @db.VarChar(8)
+  BY_PAYDATE    DateTime?      @db.Date
+  BY_ADR        String?        @db.VarChar(60)
+  BY_DISCOUNT   Float?
+  BY_BUSWK      String?        @db.Char(1)
+  BY_TKTYPE     String?        @db.Char(1)
+  BY_HAVEPAY    Float?
+  BY_InvoiceNum String?        @db.VarChar(10)
+  BY_SUMTAX     Float?
+  BY_TaxMoney   Float?
+  BY_NOTE       String?        @db.VarChar(80)
+  buygoods_ext  buygoods_ext[] @ignore
+
+  @@index([BY_CODE], map: "BY_CODE")
+  @@index([BY_COPNO], map: "BY_COPNO")
+  @@index([BY_DATE], map: "BY_DATE")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model buygoods_ext {
+  BYT_ItemCode      String   @db.VarChar(8)
+  BYT_Commodityname String?  @db.VarChar(30)
+  BYT_NUM           Int?
+  BYT_UNIT          String?  @db.VarChar(4)
+  BYT_PRICE         Float?
+  BYT_Note          String?  @db.VarChar(80)
+  BYT_CODE          String   @db.Char(12)
+  buygoods          buygoods @relation(fields: [BYT_CODE], references: [BY_CODE], onDelete: Cascade, map: "buygoods_ext_ibfk_1")
+
+  @@index([BYT_CODE], map: "BYT_CODE")
+  @@index([BYT_ItemCode], map: "BYT_ItemCode")
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model callinmer {
+  SL_AUTONO Int       @id @default(autoincrement())
+  SL_CODE   String?   @db.Char(8)
+  SL_NAME   String?   @db.VarChar(30)
+  SL_Price  Int?
+  SL_Num    Int?      @db.SmallInt
+  SL_Time   DateTime? @db.DateTime(0)
+  SL_CusId  String?   @db.VarChar(12)
+  SL_DESKNO Int?
+  SL_State  Int?      @db.TinyInt
+
+  @@index([SL_CODE], map: "SL_CODE")
+  @@index([SL_CusId], map: "SL_CusId")
+  @@index([SL_DESKNO], map: "SL_DESKNO")
+  @@index([SL_Time], map: "SL_Time")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model card {
+  CardNo        String  @id @db.VarChar(5)
+  CardName      String? @db.VarChar(20)
+  CardScore     Int?
+  CardSaleMoney Int?    @db.SmallInt
+  CardPic       Bytes?  @db.Blob
+  CardDEF1      String? @db.VarChar(80)
+  CardDEF2      String? @db.VarChar(80)
+  CardDEF3      String? @db.VarChar(80)
+  CardDEF4      String? @db.VarChar(80)
+
+  @@index([CardName], map: "CardName")
+  @@index([CardNo], map: "CardNo")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model comnogroup {
+  ComNoGropName String  @default("") @db.VarChar(20)
+  ComNo_Value   String? @db.Text
+  Selectof      Int     @default(0) @db.TinyInt
+
+  @@id([ComNoGropName, Selectof])
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model company {
+  COPNO     String    @id @db.VarChar(8)
+  COPNAME   String?   @db.VarChar(40)
+  COPSNAME  String?   @db.VarChar(8)
+  Purchaser String?   @db.VarChar(8)
+  REPONMAN  String?   @db.VarChar(8)
+  CALLMAN   String?   @db.VarChar(8)
+  COPNUM    String?   @db.VarChar(10)
+  TEL1      String?   @db.VarChar(16)
+  TEL2      String?   @db.VarChar(16)
+  FAX1      String?   @db.VarChar(12)
+  FAX2      String?   @db.VarChar(12)
+  BTEL1     String?   @db.VarChar(12)
+  BTEL2     String?   @db.VarChar(12)
+  EMAIL     String?   @db.VarChar(60)
+  BUSWK     Int?      @default(1) @db.TinyInt
+  TKTYPE    Int?      @default(3) @db.TinyInt
+  PAYDAY    Int?      @db.TinyInt
+  COPADR    String?   @db.VarChar(60)
+  WADR      String?   @db.VarChar(60)
+  COPITEM   String?   @db.VarChar(70)
+  NOTE      String?   @db.VarChar(80)
+  CREDATE   DateTime? @db.Date
+
+  @@index([BTEL1], map: "BTEL1")
+  @@index([BTEL2], map: "BTEL2")
+  @@index([COPNO], map: "COPNO")
+  @@index([COPNUM], map: "COPNUM")
+  @@index([CREDATE], map: "CREDATE")
+  @@index([FAX1], map: "FAX1")
+  @@index([FAX2], map: "FAX2")
+  @@index([TEL1], map: "TEL1")
+  @@index([TEL2], map: "TEL2")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model connectdata {
+  Com_No   Int      @default(0) @db.SmallInt
+  Com_Name String?  @db.VarChar(30)
+  Com_Mac  String?  @db.Char(17)
+  Com_Vol  Int?     @db.TinyInt
+  VolLocK  Boolean? @db.Bit(1)
+  LevelNo  String?  @db.Char(1)
+  W1       String?  @db.Char(1)
+  W2       String?  @db.Char(1)
+  W3       String?  @db.Char(1)
+  W4       String?  @db.Char(1)
+  W5       String?  @db.Char(1)
+  W6       String?  @db.Char(1)
+  W7       String?  @db.Char(1)
+  Selectof Int      @default(0) @db.TinyInt
+
+  @@id([Com_No, Selectof])
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model connecterror {
+  CT_DESKNO  Int
+  CT_COMNAME String?   @db.VarChar(20)
+  CT_TIME    DateTime? @db.DateTime(0)
+  CT_NOTE    String?   @db.VarChar(40)
+
+  @@index([CT_DESKNO], map: "CT_DESKNO")
+  @@index([CT_TIME], map: "CT_TIME")
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model cuspaper {
+  wStart DateTime  @id @db.DateTime(0)
+  wEnd   DateTime? @db.DateTime(0)
+  wcDate DateTime? @db.DateTime(0)
+  wNo    Int?      @db.TinyInt
+  wCode  String?   @db.VarChar(8)
+  wName  String?   @db.VarChar(8)
+
+  @@index([wCode], map: "wCode")
+  @@index([wEnd], map: "wEnd")
+  @@index([wStart], map: "wStart")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model cutdown_region {
+  CutName      String   @default("") @db.Char(20)
+  EVH_NAME     String?  @db.VarChar(20)
+  LevelNo      String?  @db.Char(1)
+  LevelGroup   String?  @db.Char(20)
+  MachineDef   Int?     @db.SmallInt
+  MachineGroup String?  @db.Char(20)
+  MemBerUse    Boolean? @db.Bit(1)
+  EBerUse      Boolean? @db.Bit(1)
+  APayUse      Boolean? @db.Bit(1)
+  LPayUse      Boolean? @db.Bit(1)
+  PauseThat    Boolean? @db.Bit(1)
+  Selectof     Int      @default(0) @db.TinyInt
+
+  @@id([CutName, Selectof])
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model dbom {
+  me_code  String @db.VarChar(8)
+  dme_code String @db.VarChar(8)
+  me_name  String @db.VarChar(30)
+  datetime String @db.VarChar(20)
+  qty      Float
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model doend {
+  oldtime String  @db.VarChar(30)
+  idtime  String? @db.VarChar(16)
+  text    String  @db.VarChar(255)
+  whodo   String? @db.VarChar(10)
+  okdo    String? @db.VarChar(10)
+  text1   String? @db.VarChar(255)
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model e_price {
+  Sn           String    @id @db.Char(20)
+  CalMethod    Boolean?  @db.Bit(1)
+  Min          Int?      @db.SmallInt
+  NeedPay      Int?      @db.SmallInt
+  LevelNo      String?   @db.Char(1)
+  LevelGroup   String?   @db.Char(20)
+  MachineDef   Int?      @db.SmallInt
+  MachineGroup String?   @db.Char(20)
+  MemBerUse    Boolean?  @db.Bit(1)
+  ContiUse     Boolean?  @db.Bit(1)
+  additem      String?   @db.Char(20)
+  OM_NAME      String?   @db.VarChar(20)
+  ForceTime    DateTime? @db.Time(0)
+
+  @@index([Sn], map: "Sn")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model everhourprice {
+  EVH_NAME     String   @id @db.VarChar(20)
+  EVH_Value    String?  @db.Char(168)
+  DefDayExcept Boolean? @db.Bit(1)
+
+  @@index([EVH_NAME], map: "EVH_NAME")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model flavor {
+  fr_code   String  @id @db.Char(8)
+  fr_name   String? @db.VarChar(20)
+  FontName  String? @db.VarChar(12)
+  FontColor Int?
+  FontSize  Int?    @db.TinyInt
+  ShowOrder Int?    @default(0)
+
+  @@index([fr_code], map: "fr_code")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model givepremium {
+  CusNo        String?   @db.VarChar(12)
+  Gv_CODE      String?   @db.VarChar(8)
+  Gv_NAME      String?   @db.VarChar(30)
+  Gv_NeedPoint Int?
+  Gv_Num       Int?
+  Gv_Time      DateTime? @db.DateTime(0)
+  Gv_Mark      Boolean?  @db.Bit(1)
+
+  @@index([CusNo], map: "CusNo")
+  @@index([Gv_CODE], map: "Gv_CODE")
+  @@index([Gv_Time], map: "Gv_Time")
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model hackdrop {
+  fdropName   String @id @db.VarChar(40)
+  fdropMethod Int?   @db.TinyInt
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model hardware {
+  LevelNo  String  @id @db.Char(1)
+  TypeInfo String? @db.VarChar(60)
+  AddPay   Int?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model hardwaregroup {
+  ComGroupName String   @id @db.VarChar(20)
+  A            Boolean? @db.Bit(1)
+  B            Boolean? @db.Bit(1)
+  C            Boolean? @db.Bit(1)
+  D            Boolean? @db.Bit(1)
+  E            Boolean? @db.Bit(1)
+  F            Boolean? @db.Bit(1)
+  G            Boolean? @db.Bit(1)
+  H            Boolean? @db.Bit(1)
+  I            Boolean? @db.Bit(1)
+  J            Boolean? @db.Bit(1)
+
+  @@index([ComGroupName], map: "ComGroupName")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model holiday {
+  H_NAME String    @id @db.VarChar(20)
+  H_DATE DateTime? @db.Date
+  H_NOTE String?   @db.VarChar(40)
+
+  @@index([H_NAME], map: "H_NAME")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model infotable {
+  TableName      String? @db.VarChar(30)
+  FieldOrder     Int?    @db.TinyInt
+  FieldVisible   Int?    @db.TinyInt
+  FieldCName     String? @db.VarChar(24)
+  FieldCName_ORI String? @db.VarChar(24)
+  FGridWidth     Int?
+  FGridWidth_ORI Int?
+  FieldName      String? @db.VarChar(30)
+
+  @@index([FieldOrder], map: "FieldOrder")
+  @@index([TableName], map: "TableName")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model inoutlist {
+  id    String  @db.VarChar(8)
+  name  String  @db.VarChar(10)
+  time  String  @db.VarChar(30)
+  inout String  @db.VarChar(20)
+  pic   String? @db.VarChar(40)
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model inventory {
+  IN_CODE       String          @id @db.Char(12)
+  IN_DATE       DateTime        @db.Date
+  IN_WP_NAME    String?         @db.VarChar(8)
+  IN_NOTE       String?         @db.VarChar(40)
+  inventory_ext inventory_ext[] @ignore
+
+  @@index([IN_DATE], map: "IN_DATE")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model inventory_ext {
+  INT_ItemCode      String    @db.VarChar(8)
+  INT_Commodityname String?   @db.VarChar(30)
+  INT_STKNUM        Int?
+  INT_NUM           Int?
+  INT_FIXNUM        Int?      @map("_INT_FIXNUM")
+  INT_CODE          String    @db.Char(12)
+  inventory         inventory @relation(fields: [INT_CODE], references: [IN_CODE], onDelete: Cascade, map: "inventory_ext_ibfk_1")
+
+  @@index([INT_CODE], map: "INT_CODE")
+  @@index([INT_ItemCode], map: "INT_ItemCode")
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model killpayrecord {
+  KL_TEXT   String?   @db.Text
+  KL_TIME   DateTime? @db.DateTime(0)
+  KL_MAN    String?   @db.VarChar(8)
+  KL_TYPE   String?   @db.VarChar(8)
+  KL_AUTONO Int       @id @default(autoincrement())
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model manuftype {
+  MF_NO    String   @id @db.VarChar(8)
+  MF_NAME  String?  @db.VarChar(20)
+  MF_Show  Boolean? @db.Bit(1)
+  MF_INDEX Int?
+  MF_PIC   Bytes?   @db.Blob
+  MF_FName String?  @db.VarChar(12)
+  MF_FSize Int?
+  MF_Folor Int?
+  MF_DEF1  String?  @db.VarChar(80)
+  MF_DEF2  String?  @db.VarChar(80)
+  MF_DEF3  String?  @db.VarChar(80)
+  MF_DEF4  String?  @db.VarChar(80)
+
+  @@index([MF_INDEX], map: "MF_INDEX")
+  @@index([MF_NAME], map: "MF_NAME")
+  @@index([MF_NO], map: "MF_NO")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model manyoptime {
+  name1 String @db.VarChar(20)
+  comno String @db.VarChar(10)
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model member {
+  Mem_Code      String    @id @db.VarChar(12)
+  Mem_EXTCode   String?   @db.VarChar(12)
+  Mem_Name      String?   @db.VarChar(10)
+  Mem_sex       Boolean?  @db.Bit(1)
+  Mem_Birthday  DateTime? @db.Date
+  Mem_selfcode  String?   @db.Char(10)
+  Mem_TEL       String?   @db.Char(16)
+  Mem_ID        String?   @db.VarChar(10)
+  Mem_Pass      String?   @db.VarChar(10)
+  Mem_Email     String?   @db.VarChar(40)
+  Mem_ADR       String?   @db.VarChar(50)
+  Mem_Note      String?   @db.Text
+  Mem_DEF1      String?   @db.VarChar(40)
+  Mem_DEF2      String?   @db.VarChar(40)
+  Mem_DEF3      String?   @db.VarChar(40)
+  Mem_bonus     Int?
+  Mem_Score     Int?
+  Mem_Pic       Bytes?    @db.Blob
+  Mem_LastLogin DateTime? @db.DateTime(0)
+
+  @@index([Mem_Code], map: "Mem_Code")
+  @@index([Mem_ID], map: "Mem_ID")
+  @@index([Mem_Pass], map: "Mem_Pass")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model memo {
+  timenow String @db.VarChar(20)
+  pname   String @db.VarChar(30)
+  qty     String @db.VarChar(2)
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model merchandise {
+  Me_CODE      String   @id @db.VarChar(8)
+  MF_NO        String?  @db.VarChar(8)
+  Me_NAME      String?  @db.VarChar(30)
+  Me_Unit      String?  @db.Char(4)
+  Me_SafeNum   Int?
+  Me_SalePrice Float?
+  Me_ShowORder Int?
+  Me_NeedPoint Int?
+  Me_Show      Boolean? @db.Bit(1)
+  Me_CoNum     Boolean? @db.Bit(1)
+  Me_Can       Boolean? @db.Bit(1)
+  Me_FName     String?  @db.VarChar(12)
+  Me_FSize     Int?
+  Me_Folor     Int?
+  Me_AvgPrice  Float?
+  Me_TotalNum  Int?
+  Me_pic       Bytes?   @db.Blob
+  Me_printer   String?  @db.VarChar(10)
+
+  @@index([MF_NO], map: "MF_NO")
+  @@index([Me_AvgPrice], map: "Me_AvgPrice")
+  @@index([Me_CODE], map: "Me_CODE")
+  @@index([Me_CoNum], map: "Me_CoNum")
+  @@index([Me_NAME], map: "Me_NAME")
+  @@index([Me_SafeNum], map: "Me_SafeNum")
+  @@index([Me_SalePrice], map: "Me_SalePrice")
+  @@index([Me_ShowORder], map: "Me_ShowORder")
+  @@index([Me_TotalNum], map: "Me_TotalNum")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model opentime {
+  OM_NAME      String         @id @db.VarChar(20)
+  OM_Value     String?        @db.Char(168)
+  DefDayExcept Boolean?       @db.Bit(1)
+  opentime_ext opentime_ext[] @ignore
+
+  @@index([OM_NAME], map: "OM_NAME")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model opentime_ext {
+  OE_NAME   String?   @db.VarChar(20)
+  OE_H_NAME String?   @db.VarChar(20)
+  OE_Value  String?   @db.Char(24)
+  opentime  opentime? @relation(fields: [OE_NAME], references: [OM_NAME], onDelete: Cascade, map: "opentime_ext_ibfk_1")
+
+  @@index([OE_NAME], map: "OE_NAME")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model optemp {
+  OP_Code  String?   @db.VarChar(12)
+  ComNo    Int?
+  CusNo    String?   @db.VarChar(12)
+  opTime   DateTime? @db.DateTime(0)
+  clTime   DateTime? @db.DateTime(0)
+  PayTime  DateTime? @db.DateTime(0)
+  PayM1    Int?
+  opMode   Int?      @db.TinyInt
+  ModeEx   Int?      @db.TinyInt
+  BuyIndex String?   @db.Char(12)
+  EndReOp  Int?      @db.TinyInt
+
+  @@index([OP_Code], map: "OP_Code")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model peoworkhistroy {
+  HS_CODE    String?   @db.VarChar(8)
+  HS_COMMAND String?   @db.VarChar(20)
+  HS_TIME    DateTime? @db.DateTime(0)
+
+  @@index([HS_TIME], map: "HS_TIME")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model propose {
+  PR_CusNo   String?   @db.VarChar(12)
+  PR_CusName String?   @db.VarChar(8)
+  PR_TIME    DateTime? @db.DateTime(0)
+  PR_THING   Bytes?    @db.Blob
+
+  @@index([PR_TIME], map: "PR_TIME")
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model receipt_type {
+  Y_typeno   String  @id @db.Char(1)
+  Y_typename String? @db.VarChar(6)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model refund {
+  rCusNo String?   @db.VarChar(12)
+  rTime  DateTime? @db.DateTime(0)
+  rScore Int?
+  rMoney Int?
+
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model repairmachine {
+  ComNo      Int?
+  UnLockTime DateTime? @db.DateTime(0)
+  OverTime   DateTime? @db.DateTime(0)
+  WkMan      String?   @db.VarChar(8)
+  RP_Code    String    @id @db.VarChar(12)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model repfoot {
+  REP_NO    String  @id @db.VarChar(18)
+  REP_DATA  String? @db.VarChar(300)
+  REP_ORDER Int?
+
+  @@index([REP_NO], map: "REP_NO")
+  @@index([REP_ORDER], map: "REP_ORDER")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model ringservice {
+  RN_DESKNO  Int
+  RN_CUSNO   String?   @db.VarChar(12)
+  RN_CUSNAME String?   @db.VarChar(10)
+  RN_THING   String?   @db.VarChar(60)
+  RN_TIME    DateTime? @db.DateTime(0)
+  RN_State   Int?      @db.TinyInt
+
+  @@index([RN_TIME], map: "RN_TIME")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model salemer {
+  SL_NO     String?   @db.Char(12)
+  SL_CODE   String?   @db.Char(8)
+  SL_NAME   String?   @db.VarChar(30)
+  SL_Price  Int?
+  SL_Num    Int?      @db.SmallInt
+  SL_Time   DateTime? @db.DateTime(0)
+  SL_CusId  String?   @db.VarChar(12)
+  SL_DESKNO Int?
+  SL_Note   String?   @db.Char(8)
+  SL_Mark   Boolean?  @db.Bit(1)
+  SL_STATE  Boolean?  @default(dbgenerated("b'0'")) @db.Bit(1)
+
+  @@index([SL_CODE], map: "SL_CODE")
+  @@index([SL_CusId], map: "SL_CusId")
+  @@index([SL_NO], map: "SL_NO")
+  @@index([SL_Time], map: "SL_Time")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model transcore {
+  CusNo1 String? @db.VarChar(12)
+  CusNo2 String? @db.VarChar(12)
+  Score  Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model waste {
+  OP_Code  String?   @db.VarChar(12)
+  ComNo    Int?
+  CusNo    String?   @db.VarChar(12)
+  opTime   DateTime? @db.DateTime(0)
+  clTime   DateTime? @db.DateTime(0)
+  PayTime  DateTime? @db.DateTime(0)
+  PayM1    Int?
+  opMode   Int?      @db.TinyInt
+  ModeEx   Int?      @db.TinyInt
+  BuyIndex String?   @db.Char(12)
+
+  @@index([BuyIndex], map: "BuyIndex")
+  @@index([ComNo], map: "ComNo")
+  @@index([CusNo], map: "CusNo")
+  @@index([OP_Code], map: "OP_Code")
+  @@index([PayTime], map: "PayTime")
+  @@index([clTime], map: "clTime")
+  @@index([opTime], map: "opTime")
+  @@ignore
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model workpeople {
+  WP_CODE    String   @id @db.VarChar(8)
+  WP_NAME    String?  @db.VarChar(8)
+  WP_SEX     Boolean? @db.Bit(1)
+  WP_ID      String?  @db.VarChar(12)
+  WP_PASS    String?  @db.VarChar(50)
+  WP_Tel     String?  @db.VarChar(15)
+  WP_BTel    String?  @db.VarChar(15)
+  WP_LvTitle String?  @db.VarChar(30)
+  WP_ADR     String?  @db.VarChar(60)
+  WP_DEF1    String?  @db.VarChar(80)
+  WP_DEF2    String?  @db.VarChar(80)
+  WP_DEF3    String?  @db.VarChar(80)
+  WP_Admin   Boolean? @db.Bit(1)
+  WP_SET     String?  @db.VarChar(120)
+
+  @@index([WP_BTel], map: "WP_BTel")
+  @@index([WP_CODE], map: "WP_CODE")
+  @@index([WP_ID], map: "WP_ID")
+  @@index([WP_Tel], map: "WP_Tel")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model worktime {
+  idtime   String  @db.VarChar(16)
+  year     String? @db.VarChar(4)
+  month    String? @db.VarChar(2)
+  week     String? @db.VarChar(6)
+  day      String? @db.VarChar(2)
+  hh       String? @db.VarChar(2)
+  mm       String? @db.VarChar(2)
+  rep      String? @db.VarChar(2)
+  text     String  @db.VarChar(255)
+  nob      String? @db.VarChar(8)
+  lasttime String? @db.VarChar(16)
+
+  @@ignore
+}
