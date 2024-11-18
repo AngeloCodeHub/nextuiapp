@@ -1,5 +1,167 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
+a {
+  text-decoration: none;
+}
 
+img {
+  max-width: 100%;
+  /* height: auto; */
+}
 
+ul.onlynav {
+  list-style-type: none;
+}
+
+.logo {
+  width: 200px;
+  margin-top: 10px;
+}
+
+.onlynav {
+  display: flex;
+  list-style: none;
+}
+
+.onlynav li {
+  margin-left: 20px;
+}
+
+.onlynav a:hover {
+  color: brown;
+}
+
+.headerAndnav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-wrap {
+  padding: 0 5%;
+}
+
+.webcontent {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.webcontent p {
+  margin: 10px 0 40px 0;
+}
+
+.webtitle {
+  font-size: 5rem;
+}
+
+.button {
+  font-size: 1.5rem;
+  background: blueviolet;
+  color: white;
+  border-radius: 5px;
+  padding: 20px 30px;
+}
+
+.button:hover {
+  background: chocolate;
+}
+
+.mybackground {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+main {
+  background-image: url(/sea.jpg), linear-gradient(to top right, red, yellow 30%, green);
+  background-color: aqua;
+  background-blend-mode: hard-light;
+  min-height: 100vh;
+  height: 200px;
+  margin-bottom: 10px;
+}
+
+footer {
+  text-align: center;
+  background: lightgreen;
+  padding: 3px 0;
+}
+
+footer p {
+  color: blue;
+  font-size: 1rem;
+}
+
+article {
+  width: 70%;
+}
+
+aside {
+  width: 25%;
+}
+
+.bookcontents {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+/* p { font-size: 1.5rem; } */
+.bookinfo {
+  position: relative;
+  padding-top: 4px;
+  margin-bottom: 40px;
+}
+
+.bookfocus {
+  color: red;
+  background: yellow;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  font-size: 1.5rem;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  padding-top: 10px;
+}
+
+.booktitle {
+  font-size: 2rem;
+}
+
+.booktitle,
+.booknew {
+  font-weight: bold;
+  margin-left: 120px;
+}
+
+article img {
+  margin-bottom: 10px;
+}
+
+.asidetitle {
+  color: blue;
+  font-size: 1.2rem;
+  padding: 0 5px 5px;
+  border-bottom: 2px aqua solid;
+}
+
+aside p {
+  padding: 8px;
+}
+
+.asidemenu {
+  margin-bottom: 30px;
+  list-style: none;
+}
+
+.asidemenu li {
+  border-bottom: 1px lightgray solid;
+}
+
+.asidemenu a {
+  color: blue;
+  padding: 8px;
+}
+
+.asidemenu a:hover {
+  color: brown;
+}
