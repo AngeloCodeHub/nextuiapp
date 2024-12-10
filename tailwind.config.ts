@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-
 import { nextui } from "@nextui-org/theme";
 
 export default {
